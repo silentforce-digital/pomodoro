@@ -166,6 +166,7 @@ function handleMode(event) {
   stopTimer();
 }
 
+const overlay_ = document.getElementById('js-overlay_');
 const modesNStats = document.getElementById('js-modes-n-stats');
 const task = document.getElementById('js-task');
 const clock = document.getElementById('js-clock');
@@ -183,9 +184,10 @@ mainButton.addEventListener('click', () => {
     task.classList.add('run');
     if (task.textContent === '') task.textContent = 'Do or do not.\nThere is no try.';
     clock.classList.add('run');
-
+    overlay_.classList.remove('active');
   } else {
     stopTimer();
+    overlay_.classList.add('active');
   }
 });
 
