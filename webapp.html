@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+    
+        <meta charset="utf-8">
+    
+        <!--          /* ********************* */
+                      /*    TIME MANAGEMENT    */
+                      /*       with the        */
+                      /*   POMODORO TECHNIQUE  */
+                      /* _____________________ */                  -->
+    
+        <!--                     vrs 3.1                           -->
+    
+        <!-- made with stardust by silentforce digital reflections -->
+    
+        <!--                        .                              -->
+        <!--                       .,.                             --> 
+        <!--                ...   .,:'                             -->    
+        <!--                .',.  .;:;.                            --> 
+        <!--                .',,'.,:::;'.                          -->    
+        <!--                .,,,;::::::,                           -->    
+        <!--                .,,,;:::::::.                          -->    
+        <!--                .,,;::::::::;.                         -->    
+        <!--                .,,;:::::::::,.                        -->    
+        <!--                .,;:::::::::::'                        -->    
+        <!--                .,;:::::::::::;.                       -->    
+        <!--              .';clcc::::::::::;.                      -->    
+        <!--            .coddddddlc:::::::::;.                     -->    
+        <!--           .ldddddddddoc:::::::::;'.                   -->    
+        <!--           ,ddddddddddoc::::::::::;,.                  -->    
+        <!--           .ldddddddddl::::::::::::;,'.                -->    
+        <!--            .;lodddl:'..';:::::::::;,,,..              -->    
+        <!--              ......      ..';::::::;'','.             -->    
+        <!--                              .',:::;. ....            -->    
+        <!--                                 ..,;'                 -->    
+        <!--                                    ...                -->
+        
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="HandheldFriendly" content="True">
+        <link rel="canonical" href="https://pomodoro.silentforce.co/">
+    
+        <title>Pomodoro App for Time Management</title>
+        <meta name="description" content="A minimalistic online stopwatch based on the pomodoro technique for staying focused and productive. A simple yet effective tool for time management.">
+    
+        <meta name="robots" content="index, follow">
+        <meta name="google-site-verification" content="7mhaDzt7pSjPpFkfa0R3C8BNIdox5JZG5KeOykXVSEY">
+    
+        <meta property="og:locale" content="en">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Pomodoro App for Time Management">
+        <meta property="og:description" content="A minimalistic online stopwatch based on the pomodoro technique for staying focused and productive. A simple yet effective tool for time management.">
+        <meta property="og:url" content="https://pomodoro.silentforce.co/">
+        <meta property="og:site_name" content="Pomodoro App for Time Management">
+        <meta property="og:image" content="https://silentforce.co/wp-content/uploads/2021/08/silentforce-symbol-final-1200x1200-transparent-black-comp.png">
+        <meta property="og:image:secure_url" content="https://silentforce.co/wp-content/uploads/2021/08/silentforce-symbol-final-1200x1200-transparent-black-comp.png">
+        <meta property="og:image:width" content="400">
+        <meta property="og:image:height" content="400">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:description" content="A minimalistic online stopwatch based on the pomodoro technique for staying focused and productive. A simple yet effective tool for time management.">
+        <meta name="twitter:title" content="Pomodoro App for Time Management">
+        <meta name="twitter:site" content="@silentforce_co">
+        <meta name="twitter:image" content="https://silentforce.co/wp-content/uploads/2021/08/silentforce-symbol-final-1200x1200-transparent-black-comp.png">
+        <meta name="twitter:creator" content="@silentforce_co">
+    
+        <link rel="stylesheet" href="sf_pomodoro.css">
+    
+    </head>
+    
+    <body>
+
+        <main class="webapp">
+
+            <progress class="progress-bar" id="js-progress-bar" value="0" style="background-color: var(--bgc);"></progress>
+
+            <div class="modes-n-stats " id="js-modes-n-stats">
+
+                <div class="grid-container">
+                    <div class="pomodoro mode " data-mode="pomodoro">Pomodoro</div>
+                    <div class="short-break mode " data-mode="shortBreak">Short break</div>
+                    <div class="long-break mode" data-mode="longBreak">Long break</div> 
+
+                    <div class="pomodoros rounds " id="js-pomodoros" data-stats="pomodoro">0</div>
+                    <div class="short-breaks rounds " id="js-short-breaks" data-stats="shortBreak">0</div>
+                    <div class="long-breaks rounds " id="js-long-breaks" data-stats="longBreak">0</div>
+
+                    <div class="pulse_" data-rounds="pomodoro"></div>
+                    <div class="pulse_" data-rounds="shortBreak"></div>
+                    <div class="pulse_" data-rounds="longBreak"></div>
+
+                </div>
+
+            </div>
+
+            <div class="task-n-clock">
+
+                <div class="input-task">
+
+                    <textarea class="" id="js-task" name="task" rows="3" cols="35" maxlength="35" wrap="hard" placeholder="It's time for me to focus on..." onkeydown = "return (event.keyCode!=13);" onfocusin = "hideButton()" onfocusout = "showButton()"></textarea>
+
+                </div>
+
+                <div class="clock " id="js-clock">
+
+                    <span id="js-minutes">25</span>
+                    <span class="seperator">:</span>
+                    <span id="js-seconds">00</span>
+                    <div class="popup">
+                    <div class="popuptext" id="js-popup">Total time elapsed</div>
+                    </div>
+
+                </div>
+                
+
+            </div>
+
+            <div class="main-button pulse " data-action="start" id="js-main-button"><div class="ring " id="js-ring"></div></div>
+
+        </main>
+
+        <div class="about-link">
+            <a href="https://silentforce.co/2021/time-management-with-the-pomodoro-technique/" target="_blank">about</a>
+        </div>
+      
+        <div class="sf-symbol hover-bckgr">
+            <a href="https://silentforce.co/setimpulse-games-and-software/" target="_blank" rel="author"><img class="transform_rotate_1" alt="silentforce symbol" src="silentforce-symbol-trans.png" width="50" height="50"></a>
+        </div>
+
+        <div style="display: none;">
+            <audio src="back-to-work.mp3" data-sound="pomodoro"></audio>
+            <audio src="take-a-break.mp3" data-sound="shortBreak"></audio>
+            <audio src="take-a-break.mp3" data-sound="longBreak"></audio>
+        </div>
+
+        <script src="sf_pomodoro.js"></script>
+
+    </body> 
+
+    <!--    Open up to the world.
+
+            Best,
+            sf_ team                -->
+
+</html>

@@ -1,0 +1,523 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                  TIME MANAGEMENT                  */
+/*                      with the                     */
+/*                 POMODORO TECHNIQUE                */
+/* _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ */
+
+/*                      vrs 3.1                      */
+
+/*made with stardust: silentforce digital reflections*/
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+html {
+    box-sizing: border-box;
+    font-size:  17px;
+    font-family: 'Press Start 2P', cursive !important;
+}
+  
+*, *:before, *:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+  
+:root {
+    --pomodoro: #3771CE;
+    --azure: #5a8ada;
+    --shortBreak: #A8332D;
+    --longBreak: #CE9437;
+    --white: #FFFFFF;
+    --whiteT: #FFFFFF55;
+    --whiteTT: #FFFFFF33;
+    --silver: #7A7A7A;
+    --gray: #2e2e2e;
+    --bgc: var(--pomodoro);
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    color: var(--white);
+    background-color: var(--bgc); 
+    transition: background-color 1s ease;
+    user-select: none;
+}
+
+body::-webkit-scrollbar {
+    width: 0.5em;
+}
+ 
+body::-webkit-scrollbar-thumb {
+    background-color: var(--bgc);
+}
+
+body::-webkit-scrollbar-track-piece {
+    background-color: var(--gray);
+}
+
+a {
+    color: var(--bgc);
+    text-decoration: none;
+    transition: 1s;
+}
+
+.visibility {
+    visibility: hidden;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                 PROGRESS BAR                      */
+/* _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ */
+
+progress {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border:  none;
+    border-radius: 0;
+    border-bottom: solid 0.1rem var(--white);
+    width: 100%;
+    height: 1.6rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: background-color 1s ease;
+}
+  
+progress::-webkit-progress-bar {
+   background-color: transparent !important;
+}
+  
+progress::-webkit-progress-value {
+    background-color: var(--white) !important;
+}
+  
+progress::-moz-progress-bar {
+    background-color: var(--white) !important;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                  NAV & DATA                       */
+/* _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ */
+
+.modes-n-stats {
+    width: 91vw;
+    text-align: center;
+    margin: 4.8rem auto 0 auto;
+    font-size: 0.5rem;
+    color: var(--whiteT);
+    visibility: hidden;
+    transition: 1s;
+}
+
+.modes-n-stats.run {
+    visibility: visible;
+}
+  
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-row-gap: 5px;
+    padding: 10px;
+    justify-content: auto;
+}
+
+.grid-container > div {
+    text-align: center;
+    padding: 10px;
+}
+
+.mode {
+    position: relative;
+}
+
+.rounds {
+    color: var(--whiteT);
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    line-height: 25px;
+}
+
+.pulse_ {
+    position: relative;
+    top: -55px;
+    left: 0;
+    height: 40px;
+    width: 40px;
+    content: '';
+}
+
+.active.pulse_ { 
+    border: solid 2px var(--whiteT);
+    border-radius: 50%;
+    animation-duration: 2s;
+    animation-name: emanate_;
+    animation-iteration-count: infinite;
+    color: var(--white);
+    margin: auto;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                  TASK & CLOCK                     */
+/* _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ */
+
+.task-n-clock {
+    margin: -30px auto 1rem auto;
+    padding: 0 0 2rem 0;
+    text-align: center;   
+}
+
+.input-group, .input-task {
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.6rem;
+    width: 91vw;
+    height: 10rem;
+    color: var(--white);
+    text-shadow: var(--gray) 0.2rem 0.2rem;
+    border: none;
+    outline: 0;
+    border-bottom: solid 0.3rem var(--white);
+    background-color: transparent;
+    margin: 1rem auto;
+    padding: 20px;
+    text-align: center;
+    resize: none;
+    transition: 1s;
+    overflow-y: hidden;
+}
+
+textarea::placeholder {
+    color: var(--azure);
+    text-shadow: var(--gray) 0.2rem 0.2rem;
+}
+
+textarea.run {
+    color: var(--white) !important;
+    border-bottom-color: transparent;
+}
+
+.clock {
+    margin: 0 auto;
+    font-size: 2rem;
+    color: var(--whiteT);
+    text-shadow: var(--whiteT) 0.1rem 0.1rem;
+    width: 285px;
+    display: flex;
+    justify-content: center;
+    cursor: help;
+    visibility: hidden;
+}
+
+.clock.run {
+    visibility: visible;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                  POPUP TIMER                      */
+/* _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ */
+
+.popup {
+    position: absolute;
+    width: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+  
+.popuptext {
+    visibility: hidden;
+    width: 285px;
+    background-color: var(--gray);
+    color: var(--white);
+    font-size: 0.8rem;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 3;
+    bottom: 5px;
+    left: 10px;
+    transform: translate(-55%, -5%);
+    margin: 0;
+}  
+
+.popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--gray) transparent transparent transparent;
+}
+  
+.clock:hover .popuptext {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                  MAIN BUTTON                      */
+/* _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ */
+
+.main-button {
+    position: relative;
+    bottom: 8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 50%;
+    background-color: var(--white);
+    width: 60px;
+    height: 60px;
+    margin-top: 30px;
+    padding: 0;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.main-button.active {
+    background-color: var(--whiteT);
+}
+
+.main-button.active:hover {
+    background-color: var(--white);
+}
+
+.ring {
+    width: 55px;
+    height: 55px;
+    position: absolute;
+    top: 2.5px;
+    left: 2.5px;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    content: '';
+    border: solid 3px var(--pomodoro);
+    transition: 1s;
+    visibility: hidden;
+    z-index: 1;
+}
+
+.ring:hover {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    border-radius: 50%;
+    content: '';
+    border: solid 3px var(--whiteT);
+    transition: 0.6s;
+}
+
+.ring.active {
+    visibility: visible;
+}
+ 
+.pulse:after {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    border-radius: 50%;
+    content: '';
+    border: solid 1px var(--white);
+    animation-duration: 2s;
+    animation-name: emanate;
+    animation-iteration-count: infinite;
+}
+
+.main-button.active.pulse:after {
+    animation: none;
+    visibility: hidden;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                     FOOTER                        */
+/* _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ */
+
+.about-link {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: 1rem;
+    z-index: -1;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 50%;
+    background-color: var(--whiteTT);
+    cursor: pointer;
+    transition: 1s;
+}
+
+.sf-symbol {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 1rem;
+    z-index: 1;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 50%;
+    background-color: var(--whiteTT);
+    cursor: pointer;
+    transition: 1s;
+}
+
+.sf-symbol:hover {
+    background-color: var(--white);
+    transition: 1s;
+}
+
+.about-link:hover {
+    background-color: var(--white);
+    transition: 1s; 
+}
+  
+.transform_rotate_1 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    padding: 0px;
+    animation: shimmy1 5s infinite;
+    animation-direction: alternate;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                 DESKTOP QUERY                     */
+/* _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ */
+
+@media screen and (min-width: 650px) {
+
+    .modes-n-stats {
+        width: 61.8vw;
+        margin: 4rem auto 2rem auto;
+        font-size: 1rem;
+    }
+
+    .stats {
+        position: relative;
+        top: -50px;
+        left: 0px;
+    }
+
+    .pomodoros, .short-breaks, .long-breaks {
+        height: 70px;
+        width: 70px;
+        line-height: 50px;
+    }
+
+    .pulse_ {
+        top: -65px;
+        height: 50px;
+        width: 50px;
+    }
+
+    .main-app {
+        margin-top: 3.2rem;
+    }
+
+    .task-n-clock {
+        margin: 1.6rem auto 1rem auto;
+        padding: 2rem; 
+    }
+
+    textarea {
+        font-size: 2rem;
+        height: 6rem;
+    }
+
+    .clock {
+        margin-top: 2rem;
+    }
+
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                   KEYFRAMES                       */
+/* _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ */
+
+@keyframes emanate {
+    0% {
+        opacity: 0;
+        transform: scale(1.1); 
+    }
+    
+    20% {
+        opacity: 1;
+        border: solid 3px var(--white);
+    }
+    
+    30% {
+        opacity: 0.6;
+        border: solid 3px var(--white);
+    }
+    
+    100% {
+        opacity: 0.0;
+        transform: scale(1.6);
+        border: solid 3px var(--white);
+    }
+}
+
+@keyframes emanate_ {
+    0% {
+        opacity: 0;
+        transform: scale(1.1); 
+    }
+    
+    20% {
+        opacity: 1;
+        border: solid 2px var(--white);
+    }
+    
+    30% {
+        opacity: 0.6;
+        border: solid 2px var(--white);
+    }
+    
+    100% {
+        opacity: 0.0;
+        transform: scale(1.6);
+        border: solid 2px var(--white);
+    }
+}
+
+@keyframes shimmy1 {
+    0% {
+      transform: rotate(-5deg);
+      }
+    100% {
+      transform: rotate(5deg);
+    }
+} 
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
